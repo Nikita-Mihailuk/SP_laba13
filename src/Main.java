@@ -4,19 +4,22 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        String url = "";
+        while (true){
+            System.out.println("Введите ссылку для скачивания файла(введите 0 для выхода из программы): ");
 
-        // Последовательное скачивание
-        DownloadURL("https://videocdn.cdnpk.net/joy/content/video/free/2014-12/large_preview/Raindrops_Videvo.mp4?token=exp=1729269128~hmac=f0c686b39913fb54c0b3110fe3fa5acb595a510c7d1d7f38b4ae11dfead72c8f");
-        DownloadURL("https://oreol-tour.ru/files/Trebovanie_obrazec.pdf");
-
-        // Параллельное скачивание
-        new Thread(() -> DownloadURL("https://rus.hitmotop.com/get/music/20190803/So_slovami_-_Gimn_Rossii_65864310.mp3")).start();
-        new Thread(() -> DownloadURL("https://sun9-38.userapi.com/impg/RVdX7bELiniswNhB60ELLHiWPobf2krletzdVw/WtqpwA6HRSc.jpg?size=720x1280&quality=95&sign=303e1d0d59a5795c485111fe4b993446&type=album")).start();
-        new Thread(() -> DownloadURL("https://www.pngmart.com/files/11/Derp-Face-Meme-Transparent-PNG.png")).start();
-
+            url = in.nextLine();
+            String finalUrl = url;
+            if (url.equals("0")){
+                break;
+            }
+            new Thread(() -> DownloadURL(finalUrl)).start();
+        }
     }
 
     public static void DownloadURL(String URL){
